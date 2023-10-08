@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+}
+
+body {
+  min-height: 100vh;
+  background-image: url("ui/assets/backgroundImg.jpg");
+  background-size: 100% 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#content {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr 5fr;
+  height: 70vh;
+  width: 75vw;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: white;
+}
