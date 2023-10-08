@@ -1,4 +1,37 @@
 .sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   grid-row: 2/3;
   grid-column: 1/2;
+  padding: 1rem;
+  background-color: rgba(235, 228, 228, 0.418);
+}
+
+.notes,
+.projects,
+.todos {
+  list-style: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.todos > li {
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.notes > li,
+.projects > li {
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  margin-top: 0.3rem;
+  opacity: 0.7;
+}
+
+.addtodobtn {
+  height: 3rem;
+  width: 3rem;
+  align-self: center;
+  cursor: pointer;
 }
