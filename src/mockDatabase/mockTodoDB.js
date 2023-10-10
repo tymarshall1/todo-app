@@ -5,8 +5,15 @@ export default class TodoDB {
     new Todo(
       "wash dishes",
       "have to get the dishes done today",
-      "10/7/2023",
-      "high",
+      new Date("10/14/2023 00:00:00"),
+      "highPriority",
+      "none"
+    ),
+    new Todo(
+      "clean clothes",
+      "have to get the clothes washed today",
+      new Date("10/10/2023 00:00:00"),
+      "medPriority",
       "none"
     ),
   ];

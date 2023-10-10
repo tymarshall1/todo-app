@@ -2,15 +2,16 @@ import "./style.css";
 import edit from "../assets/editBtn.svg";
 import deleteButton from "../assets/deleteBtn.svg";
 
-export default function todoBody() {
+export default function todoBody(filteredTodos) {
   const content = document.querySelector("#content");
   const div = document.createElement("div");
 
   div.classList.add("todo-list");
 
-  const item = todoItem("xxx");
+  filteredTodos.forEach((todo) => {
+    div.append(todoItem(todo));
+  });
 
-  div.appendChild(item);
   content.appendChild(div);
 }
 
@@ -19,25 +20,44 @@ const todoItem = (todo) => {
   const titleContainer = document.createElement("div");
   const todoCheckbox = document.createElement("input");
   const todoTitle = document.createElement("h2");
+  const todoDate = document.createElement("p");
   const todoBtns = document.createElement("div");
   const deleteBtn = document.createElement("img");
   const editBtn = document.createElement("img");
 
   todoCheckbox.type = "checkbox";
-  // todoTitle.textContent = todo.title;
-  todoTitle.textContent = todo;
+  todoTitle.textContent = todo.title;
+  todoDate.textContent = `${todo.dueDate.getMonth()}/${todo.dueDate.getDate()}/${todo.dueDate.getFullYear()}`;
+
   editBtn.src = edit;
   deleteBtn.src = deleteButton;
 
   todoContainer.classList.add("todo-item");
-  // todoBtns.classList.add("");
   titleContainer.classList.add("todo-title-container");
+  setPriorityBorder(todo.priority, todoContainer);
 
   todoBtns.appendChild(editBtn);
   todoBtns.appendChild(deleteBtn);
   titleContainer.appendChild(todoCheckbox);
   titleContainer.appendChild(todoTitle);
+  titleContainer.appendChild(todoDate);
   todoContainer.appendChild(titleContainer);
   todoContainer.appendChild(todoBtns);
   return todoContainer;
+};
+
+const setPriorityBorder = (priority, todoContainer) => {
+  switch (priority) {
+    case "lowPriority":
+      todoContainer.classList.add("low-prio-border");
+      break;
+
+    case "medPriority":
+      todoContainer.classList.add("med-prio-border");
+      break;
+
+    case "highPriority":
+      todoContainer.classList.add("high-prio-border");
+      break;
+  }
 };

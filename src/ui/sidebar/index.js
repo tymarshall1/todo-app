@@ -1,5 +1,6 @@
 import "./style.css";
 import addTodoSVG from "../assets/addtodo.svg";
+import todoBody from "../todoListBody/index.js";
 
 export default function sidebar(todoDB) {
   const content = document.querySelector("#content");
@@ -7,10 +8,10 @@ export default function sidebar(todoDB) {
 
   sidebarContainer.classList.add("sidebar");
 
-  const todosList = todos();
+  const todosList = todosNav(todoDB);
   const projectList = projects();
   const notesOption = notes();
-  const addtodoOption = addTodo();
+  const addtodoOption = addTodoIcon(todoDB);
 
   sidebarContainer.appendChild(todosList);
   sidebarContainer.appendChild(projectList);
@@ -20,25 +21,42 @@ export default function sidebar(todoDB) {
   content.appendChild(sidebarContainer);
 }
 
-const todos = () => {
+const todosNav = (todoDB) => {
   const todos = document.createElement("ul");
+  const allTasks = document.createElement("li");
   const todayTasks = document.createElement("li");
   const weeklyTasks = document.createElement("li");
   const monthlyTasks = document.createElement("li");
 
   todos.classList.add("todos");
 
+  allTasks.textContent = "All";
   todayTasks.textContent = "Today";
   weeklyTasks.textContent = "Week";
   monthlyTasks.textContent = "Month";
 
+  allTasks.addEventListener("click", () => {
+    removeTodosFromScreen();
+    todoBody(todoDB.readAllTodos());
+  });
+
   todayTasks.addEventListener("click", () => {
-    console.log(new Date());
+    const currentDate = new Date(); // Get the current date and time
+    currentDate.setHours(0, 0, 0, 0); // Set the time to midnight
+
+    const filteredTodos = todoDB.readAllTodos().filter((todo) => {
+      const todoDate = new Date(todo.dueDate);
+      todoDate.setHours(0, 0, 0, 0); // Set the time of each todo to midnight
+      return todoDate.getTime() === currentDate.getTime();
+    });
+    removeTodosFromScreen();
+    todoBody(filteredTodos);
   });
 
   weeklyTasks.addEventListener("click", () => {});
   monthlyTasks.addEventListener("click", () => {});
 
+  todos.appendChild(allTasks);
   todos.appendChild(todayTasks);
   todos.appendChild(weeklyTasks);
   todos.appendChild(monthlyTasks);
@@ -73,13 +91,14 @@ const notes = () => {
   return notes;
 };
 
-const addTodo = () => {
+const addTodoIcon = (todoDB) => {
   const addtodoBtn = document.createElement("img");
   const dialog = document.createElement("dialog");
 
   document.querySelector("#content").appendChild(dialog);
 
-  dialog.appendChild(addFormContainer());
+  dialog.appendChild(addFormContainer(todoDB));
+  dialog.id = "add-todo-dialog";
 
   addtodoBtn.src = addTodoSVG;
   addtodoBtn.classList.add("addtodobtn");
@@ -90,7 +109,7 @@ const addTodo = () => {
   return addtodoBtn;
 };
 
-const addFormContainer = () => {
+const addFormContainer = (todoDB) => {
   const formContainer = document.createElement("div");
   const formHeader = document.createElement("div");
   const formHeaderText = document.createElement("h1");
@@ -117,14 +136,14 @@ const addFormContainer = () => {
   formHeader.appendChild(formHeaderText);
 
   formbody.appendChild(elementToAdd);
-  formbody.appendChild(addTodoFormBody());
+  formbody.appendChild(addTodoFormBody(todoDB));
 
   formContainer.appendChild(formHeader);
   formContainer.appendChild(formbody);
   return formContainer;
 };
 
-const addTodoFormBody = () => {
+const addTodoFormBody = (todoDB) => {
   const titleInp = document.createElement("input");
   const descriptioninp = document.createElement("textarea");
   const submitForm = document.createElement("button");
@@ -146,26 +165,37 @@ const addTodoFormBody = () => {
   priorityLabelHigh.addEventListener("click", (e) => priorityMarker(e));
 
   form.id = "addTodo";
-
   submitForm.type = "submit";
   submitForm.setAttribute("form", "addTodo");
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log(titleInp.value);
-    console.log(descriptioninp.value);
-    console.log(datepick.value);
     const radioButtons = priorityFieldset.querySelectorAll(
       'input[type="radio"][name="priority"]:checked'
     );
 
     if (radioButtons.length > 0) {
       const selectedValue = radioButtons[0].value;
-      console.log("Selected priority:", selectedValue);
-    } else {
-      console.log("No priority selected.");
+      todoDB.createTodo(
+        titleInp.value,
+        descriptioninp.value,
+        new Date(`${datepick.value} 00:00:00`),
+        selectedValue
+      );
     }
+
+    removeTodosFromScreen();
+    todoBody(todoDB.readAllTodos());
+    document.querySelector("#add-todo-dialog").close();
+    priorityStartPosition();
+    form.reset();
   });
+
+  titleInp.required = true;
+  descriptioninp.required = true;
+  datepick.required = true;
+  priorityRadioLow.checked = true;
+  priorityLabelLow.classList.add("low-prio-clicked");
 
   datepick.type = "date";
   titleInp.type = "text";
@@ -231,6 +261,16 @@ const addTodoFormBody = () => {
   return form;
 };
 
+const priorityStartPosition = () => {
+  const prioLow = document.querySelector(".low-prio");
+  const prioMed = document.querySelector(".med-prio");
+  const prioHigh = document.querySelector(".high-prio");
+
+  prioLow.classList.add("low-prio-clicked");
+  prioMed.classList.remove("med-prio-clicked");
+  prioHigh.classList.remove("high-prio-clicked");
+};
+
 const priorityMarker = (e) => {
   const prioLow = document.querySelector(".low-prio");
   const prioMed = document.querySelector(".med-prio");
@@ -257,4 +297,9 @@ const priorityMarker = (e) => {
 const addProjectFormBody = () => {};
 const addNoteFormBody = () => {};
 
-const removeTodosFromScreen = () => {};
+const removeTodosFromScreen = () => {
+  const todoBody = document.querySelectorAll(".todo-list");
+  todoBody.forEach((todoList) => {
+    todoList.remove();
+  });
+};

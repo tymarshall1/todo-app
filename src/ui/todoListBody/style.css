@@ -2,25 +2,41 @@
   grid-column: 2/3;
   grid-row: 2/3;
   padding: 1rem;
+  overflow: scroll;
 }
 
 .todo-item {
   display: flex;
   justify-content: space-between;
-  border: 2px solid lightblue;
+
   border-radius: 2rem;
   padding: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .todo-item:hover {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+.todo-title-container p,
 .todo-title-container h2 {
   margin-left: 0.5rem;
 }
 
+.todo-title-container p,
 .todo-title-container h2,
 .todo-title-container input {
   display: inline;
+}
+
+.low-prio-border {
+  border: 2px solid rgba(0, 128, 0, 0.363);
+}
+
+.med-prio-border {
+  border: 2px solid rgba(255, 140, 0, 0.363);
+}
+
+.high-prio-border {
+  border: 2px solid rgba(255, 0, 0, 0.363);
 }

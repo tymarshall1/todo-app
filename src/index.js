@@ -6,6 +6,9 @@ import TodoDB from "./mockDatabase/mockTodoDB.js";
 
 const todoDB = new TodoDB();
 
+window.addEventListener("load", () => {
+  todoBody(todoDB.readAllTodos());
+});
+
 sidebar(todoDB);
 appHeader();
-todoBody();
