@@ -2,7 +2,7 @@ import "./style.css";
 import edit from "../assets/editBtn.svg";
 import deleteButton from "../assets/deleteBtn.svg";
 
-export default function todoBody(filteredTodos) {
+function todoBody(filteredTodos) {
   const content = document.querySelector("#content");
   const div = document.createElement("div");
 
@@ -61,3 +61,12 @@ const setPriorityBorder = (priority, todoContainer) => {
       break;
   }
 };
+
+function removeTodosFromScreen() {
+  const todoBody = document.querySelectorAll(".todo-list");
+  todoBody.forEach((todoList) => {
+    todoList.remove();
+  });
+}
+
+export { todoBody, removeTodosFromScreen };
