@@ -12,6 +12,8 @@
   border-radius: 2rem;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
+  cursor: pointer;
+  user-select: none;
 }
 
 .todo-item:hover {
@@ -39,4 +41,52 @@
 
 .high-prio-border {
   border: 2px solid rgba(255, 0, 0, 0.363);
+}
+
+.todo-modal {
+  border-radius: 1rem;
+  border: none;
+  outline: none;
+}
+
+.todo-modal-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
+  padding: 1rem;
+  text-align: center;
+}
+
+.todo-item-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.todo-item-body p {
+  font-size: 1.2rem;
+}
+
+.card-exit-btn:hover {
+  background-color: gray;
+  border-radius: 50%;
+}
+.todo-body-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+hr {
+  width: 100%;
+  height: 3px;
+  border: none;
+  background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
 }

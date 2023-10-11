@@ -102,9 +102,9 @@ const addTodoFormBody = (todoDB) => {
   priorityLabelMed.htmlFor = "priorityMed";
   priorityLabelHigh.htmlFor = "priorityHigh";
 
-  priorityRadioLow.value = "lowPriority";
-  priorityRadioMed.value = "medPriority";
-  priorityRadioHigh.value = "highPriority";
+  priorityRadioLow.value = "low";
+  priorityRadioMed.value = "medium";
+  priorityRadioHigh.value = "high";
 
   priorityRadioLow.id = "priorityLow";
   priorityRadioLow.name = "priority";
