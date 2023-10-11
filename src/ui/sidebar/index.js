@@ -3,7 +3,7 @@ import addTodoSVG from "../assets/addtodo.svg";
 import { todoBody, removeTodosFromScreen } from "../todoListBody/index.js";
 import addFormContainer from "../formModal/index.js";
 
-export default function sidebar(todoDB) {
+function sidebar(todoDB) {
   const content = document.querySelector("#content");
   const sidebarContainer = document.createElement("div");
 
@@ -31,12 +31,15 @@ const todosNav = (todoDB) => {
 
   todos.classList.add("todos");
 
+  allTasks.id = "allTasks";
+
   allTasks.textContent = "All";
   todayTasks.textContent = "Today";
   weeklyTasks.textContent = "Week";
   monthlyTasks.textContent = "Month";
 
   allTasks.addEventListener("click", () => {
+    optionCurrentlySelected(allTasks);
     removeTodosFromScreen();
     todoBody(todoDB.readAllTodos());
   });
@@ -50,12 +53,49 @@ const todosNav = (todoDB) => {
       todoDate.setHours(0, 0, 0, 0); // Set the time of each todo to midnight
       return todoDate.getTime() === currentDate.getTime();
     });
+    optionCurrentlySelected(todayTasks);
     removeTodosFromScreen();
     todoBody(filteredTodos);
   });
 
-  weeklyTasks.addEventListener("click", () => {});
-  monthlyTasks.addEventListener("click", () => {});
+  weeklyTasks.addEventListener("click", () => {
+    const currentDate = new Date(); // Get the current date and time
+    currentDate.setHours(0, 0, 0, 0); // Set the time to midnight
+    const weekFromToday = new Date();
+    weekFromToday.setHours(0, 0, 0, 0);
+    weekFromToday.setDate(weekFromToday.getDate() + 7);
+
+    const filteredTodos = todoDB.readAllTodos().filter((todo) => {
+      const todoDate = new Date(todo.dueDate);
+      todoDate.setHours(0, 0, 0, 0); // Set the time of each todo to midnight
+      return (
+        todoDate.getTime() >= currentDate.getTime() &&
+        todoDate.getTime() <= weekFromToday.getTime()
+      );
+    });
+    optionCurrentlySelected(weeklyTasks);
+    removeTodosFromScreen();
+    todoBody(filteredTodos);
+  });
+  monthlyTasks.addEventListener("click", () => {
+    const currentDate = new Date(); // Get the current date and time
+    currentDate.setHours(0, 0, 0, 0); // Set the time to midnight
+    const monthFromToday = new Date();
+    monthFromToday.setHours(0, 0, 0, 0);
+    monthFromToday.setDate(monthFromToday.getDate() + 30);
+
+    const filteredTodos = todoDB.readAllTodos().filter((todo) => {
+      const todoDate = new Date(todo.dueDate);
+      todoDate.setHours(0, 0, 0, 0); // Set the time of each todo to midnight
+      return (
+        todoDate.getTime() >= currentDate.getTime() &&
+        todoDate.getTime() <= monthFromToday.getTime()
+      );
+    });
+    optionCurrentlySelected(monthlyTasks);
+    removeTodosFromScreen();
+    todoBody(filteredTodos);
+  });
 
   todos.appendChild(allTasks);
   todos.appendChild(todayTasks);
@@ -74,6 +114,10 @@ const projects = () => {
   projects.textContent = "Projects";
   placeholderProject.textContent = "Finish TOP";
 
+  projects.addEventListener("click", () => {
+    optionCurrentlySelected(projects);
+  });
+
   projects.appendChild(placeholderProject);
 
   return projects;
@@ -81,14 +125,15 @@ const projects = () => {
 
 const notes = () => {
   const notes = document.createElement("ul");
-  const notesPlaceholder = document.createElement("li");
 
   notes.classList.add("notes");
 
   notes.textContent = "Notes";
-  notesPlaceholder.textContent = "Note One";
 
-  notes.appendChild(notesPlaceholder);
+  notes.addEventListener("click", () => {
+    optionCurrentlySelected(notes);
+  });
+
   return notes;
 };
 
@@ -112,3 +157,19 @@ const addTodoIcon = (todoDB) => {
 
 const addProjectFormBody = () => {};
 const addNoteFormBody = () => {};
+
+const optionCurrentlySelected = (navItemClicked) => {
+  navItemClicked.classList.add("navlink-clicked");
+  const navLinks = document.querySelectorAll(".sidebar ul > li");
+  const navLinkUls = document.querySelectorAll(".sidebar ul");
+  navLinks.forEach((navlink) => {
+    if (navlink != navItemClicked) navlink.classList.remove("navlink-clicked");
+  });
+
+  navLinkUls.forEach((navlinkUl) => {
+    if (navlinkUl != navItemClicked)
+      navlinkUl.classList.remove("navlink-clicked");
+  });
+};
+
+export { sidebar, optionCurrentlySelected };

@@ -27,7 +27,9 @@ const todoItem = (todo) => {
 
   todoCheckbox.type = "checkbox";
   todoTitle.textContent = todo.title;
-  todoDate.textContent = `${todo.dueDate.getMonth()}/${todo.dueDate.getDate()}/${todo.dueDate.getFullYear()}`;
+  todoDate.textContent = `${
+    todo.dueDate.getMonth() + 1
+  }/${todo.dueDate.getDate()}/${todo.dueDate.getFullYear()}`;
 
   editBtn.src = edit;
   deleteBtn.src = deleteButton;

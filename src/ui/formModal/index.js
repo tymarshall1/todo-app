@@ -1,5 +1,6 @@
 import "./style.css";
 import { todoBody, removeTodosFromScreen } from "../todoListBody/index.js";
+import { optionCurrentlySelected } from "../sidebar/index.js";
 
 export default function addFormContainer(todoDB) {
   const formContainer = document.createElement("div");
@@ -76,6 +77,7 @@ const addTodoFormBody = (todoDB) => {
       );
     }
 
+    optionCurrentlySelected(document.querySelector("#allTasks"));
     removeTodosFromScreen();
     todoBody(todoDB.readAllTodos());
     document.querySelector("#add-todo-dialog").close();

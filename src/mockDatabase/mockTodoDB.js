@@ -16,6 +16,20 @@ export default class TodoDB {
       "medPriority",
       "none"
     ),
+    new Todo(
+      "clean clothes",
+      "have to get the clothes washed today",
+      new Date("10/19/2023 00:00:00"),
+      "medPriority",
+      "none"
+    ),
+    new Todo(
+      "clean clothes",
+      "have to get the clothes washed today",
+      new Date("10/18/2023 00:00:00"),
+      "medPriority",
+      "none"
+    ),
   ];
 
   createTodo(title, description, dueDate, priority, project) {

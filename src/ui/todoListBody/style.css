@@ -2,7 +2,7 @@
   grid-column: 2/3;
   grid-row: 2/3;
   padding: 1rem;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .todo-item {

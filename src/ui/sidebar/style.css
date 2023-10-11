@@ -14,6 +14,7 @@
   list-style: none;
   font-size: 1.5rem;
   cursor: pointer;
+  user-select: none;
 }
 
 .todos > li {
@@ -21,7 +22,12 @@
   cursor: pointer;
 }
 
-.notes > li,
+.notes:hover,
+.todos > li:hover,
+.projects > li:hover {
+  color: lightgreen;
+}
+
 .projects > li {
   font-size: 1rem;
   margin-left: 0.5rem;
@@ -34,4 +40,8 @@
   width: 3rem;
   align-self: center;
   cursor: pointer;
+}
+
+.navlink-clicked::before {
+  content: url("../assets/selectedIcon.svg");
 }
