@@ -8,7 +8,7 @@ const todoDB = new TodoDB();
 
 window.addEventListener("load", () => {
   optionCurrentlySelected(document.querySelector("#allTasks"));
-  todoBody(todoDB.readAllTodos());
+  todoBody(todoDB.readAllTodos(), todoDB);
 });
 
 sidebar(todoDB);

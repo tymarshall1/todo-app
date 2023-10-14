@@ -10,21 +10,21 @@ export default class TodoDB {
       "none"
     ),
     new Todo(
-      "clean clothes",
+      "clean tractor",
       "have to get the clothes washed today",
       new Date("10/10/2023 00:00:00"),
       "high",
       "none"
     ),
     new Todo(
-      "clean clothes",
+      "clean wash",
       "have to get the clothes washed today",
       new Date("10/19/2023 00:00:00"),
       "medium",
       "none"
     ),
     new Todo(
-      "clean clothes",
+      "clean bed",
       "have to get the clothes washed today",
       new Date("10/18/2023 00:00:00"),
       "low",
@@ -32,7 +32,7 @@ export default class TodoDB {
     ),
   ];
 
-  createTodo(title, description, dueDate, priority, project) {
+  createTodo() {
     this.#todoDB.push(new Todo(title, description, dueDate, priority, project));
   }
 
@@ -40,7 +40,21 @@ export default class TodoDB {
     return this.#todoDB;
   }
 
-  updateTodo(todoTitle) {}
+  updateTodo(oldTodo, newTodo) {
+    const todoIndex = this.#todoDB.findIndex((todo) => {
+      return todo.title === oldTodo.title;
+    });
+
+    console.log(todoIndex);
+  }
+
+  markTodoComplete(todoTitle, status) {
+    const todoIndex = this.#todoDB.findIndex((todo) => {
+      return todo.title === todoTitle;
+    });
+    this.#todoDB[todoIndex].completed = status;
+    // console.log(this.#todoDB[todoIndex]);
+  }
 
   deleteTodo(todoTitle) {}
 }

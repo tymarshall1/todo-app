@@ -41,7 +41,7 @@ const todosNav = (todoDB) => {
   allTasks.addEventListener("click", () => {
     optionCurrentlySelected(allTasks);
     removeTodosFromScreen();
-    todoBody(todoDB.readAllTodos());
+    todoBody(todoDB.readAllTodos(), todoDB);
   });
 
   todayTasks.addEventListener("click", () => {
@@ -55,7 +55,7 @@ const todosNav = (todoDB) => {
     });
     optionCurrentlySelected(todayTasks);
     removeTodosFromScreen();
-    todoBody(filteredTodos);
+    todoBody(filteredTodos, todoDB);
   });
 
   weeklyTasks.addEventListener("click", () => {
@@ -75,7 +75,7 @@ const todosNav = (todoDB) => {
     });
     optionCurrentlySelected(weeklyTasks);
     removeTodosFromScreen();
-    todoBody(filteredTodos);
+    todoBody(filteredTodos, todoDB);
   });
   monthlyTasks.addEventListener("click", () => {
     const currentDate = new Date(); // Get the current date and time
@@ -94,7 +94,7 @@ const todosNav = (todoDB) => {
     });
     optionCurrentlySelected(monthlyTasks);
     removeTodosFromScreen();
-    todoBody(filteredTodos);
+    todoBody(filteredTodos, todoDB);
   });
 
   todos.appendChild(allTasks);

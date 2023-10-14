@@ -2,21 +2,22 @@ import "./style.css";
 import edit from "../assets/editBtn.svg";
 import deleteButton from "../assets/deleteBtn.svg";
 import exit from "../assets/xBtn.svg";
+import Todo from "../../modules/todo.js";
 
-function todoBody(filteredTodos) {
+function todoBody(filteredTodos, todoDB) {
   const content = document.querySelector("#content");
   const div = document.createElement("div");
 
   div.classList.add("todo-list");
 
   filteredTodos.forEach((todo) => {
-    div.append(todoItem(todo));
+    div.append(todoItem(todo, todoDB));
   });
 
   content.appendChild(div);
 }
 
-const todoItem = (todo) => {
+const todoItem = (todo, todoDB) => {
   const todoContainer = document.createElement("div");
   const titleContainer = document.createElement("div");
   const todoCheckbox = document.createElement("input");
@@ -34,9 +35,20 @@ const todoItem = (todo) => {
 
   editBtn.src = edit;
   deleteBtn.src = deleteButton;
+  lineThroughTodo(todo, todoContainer, todoTitle, todoDate, todoCheckbox);
+
+  todoCheckbox.addEventListener("input", () => {
+    if (todoCheckbox.checked) {
+      todoDB.markTodoComplete(todo.title, true);
+      lineThroughTodo(todo, todoContainer, todoTitle, todoDate, todoCheckbox);
+      return;
+    }
+    todoDB.markTodoComplete(todo.title, false);
+    lineThroughTodo(todo, todoContainer, todoTitle, todoDate, todoCheckbox);
+  });
 
   todoContainer.addEventListener("click", () => {
-    todoItemModal(todo);
+    // todoItemModal(todo);
   });
 
   todoContainer.classList.add("todo-item");
@@ -137,7 +149,6 @@ const todoItemModal = (todo) => {
   cardBodyProjP.textContent = todo.project;
   cardBodyCompletedP.textContent = todo.completed;
 
-  todoCard.addEventListener("click", () => clearModalsOnClose(todoCard));
   window.addEventListener("keypress", () => clearModalsOnClose(todoCard));
   cardExit.addEventListener("click", () => {
     clearModalsOnClose(todoCard);
@@ -193,6 +204,26 @@ const clearModalsOnClose = (modalSelected) => {
   const cardModals = document.querySelectorAll(".todo-modal");
   cardModals.forEach((modal) => modal.remove());
   modalSelected.close();
+};
+
+const lineThroughTodo = (
+  todo,
+  todoContainer,
+  todoTitle,
+  todoDate,
+  todoCheckbox
+) => {
+  if (todo.completed === true) {
+    console.log(todoContainer);
+    todoContainer.style.opacity = 0.5;
+    todoTitle.style.textDecoration = "line-through";
+    todoDate.style.textDecoration = "line-through";
+    todoCheckbox.checked = true;
+  } else {
+    todoContainer.style.opacity = 1;
+    todoTitle.style.textDecoration = "none";
+    todoDate.style.textDecoration = "none";
+  }
 };
 
 export { todoBody, removeTodosFromScreen };
