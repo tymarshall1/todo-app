@@ -2,6 +2,7 @@ import "./style.css";
 import edit from "../assets/editBtn.svg";
 import deleteButton from "../assets/deleteBtn.svg";
 import exit from "../assets/xBtn.svg";
+import expand from "../assets/expand.svg";
 // import Todo from "../../modules/todo.js";
 import {
   weekFromToday,
@@ -26,11 +27,16 @@ const todoItem = (todo, todoDB) => {
   const todoContainer = document.createElement("div");
   const titleContainer = document.createElement("div");
   const todoCheckbox = document.createElement("input");
-  const todoTitle = document.createElement("h2");
-  const todoDate = document.createElement("p");
+  const todoTitle = document.createElement("label");
+  const todoDate = document.createElement("label");
   const todoBtns = document.createElement("div");
   const deleteBtn = document.createElement("img");
   const editBtn = document.createElement("img");
+  const expandBtn = document.createElement("img");
+
+  todoDate.htmlFor = todo.title;
+  todoTitle.htmlFor = todo.title;
+  todoCheckbox.id = todo.title;
 
   todoCheckbox.type = "checkbox";
   todoTitle.textContent = todo.title;
@@ -38,6 +44,7 @@ const todoItem = (todo, todoDB) => {
     todo.dueDate.getMonth() + 1
   }/${todo.dueDate.getDate()}/${todo.dueDate.getFullYear()}`;
 
+  expandBtn.src = expand;
   editBtn.src = edit;
   deleteBtn.src = deleteButton;
   lineThroughTodo(todo, todoContainer, todoTitle, todoDate, todoCheckbox);
@@ -58,14 +65,19 @@ const todoItem = (todo, todoDB) => {
     lineThroughTodo(todo, todoContainer, todoTitle, todoDate, todoCheckbox);
   });
 
-  todoContainer.addEventListener("click", () => {
-    // todoItemModal(todo);
+  expandBtn.addEventListener("click", () => {
+    todoItemModal(todo);
   });
 
+  expandBtn.classList.add("todo-btn");
+  deleteBtn.classList.add("todo-btn");
+  editBtn.classList.add("todo-btn");
+  todoTitle.classList.add("todo-title");
   todoContainer.classList.add("todo-item");
   titleContainer.classList.add("todo-title-container");
   setPriorityBorder(todo.priority, todoContainer);
 
+  todoBtns.appendChild(expandBtn);
   todoBtns.appendChild(editBtn);
   todoBtns.appendChild(deleteBtn);
   titleContainer.appendChild(todoCheckbox);

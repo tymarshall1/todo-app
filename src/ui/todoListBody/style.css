@@ -8,29 +8,34 @@
 .todo-item {
   display: flex;
   justify-content: space-between;
-
+  align-items: center;
   border-radius: 2rem;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
-  cursor: pointer;
   user-select: none;
 }
 .todo-item input[type="checkbox"] {
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.todo-title-container label:hover {
+  cursor: pointer;
 }
 
 .todo-item:hover {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.todo-title-container p,
-.todo-title-container h2 {
+.todo-title {
+  font-size: 1.8rem;
+}
+
+.todo-title-container label {
   margin-left: 0.5rem;
 }
 
-.todo-title-container p,
-.todo-title-container h2,
 .todo-title-container input {
   display: inline;
 }
@@ -78,10 +83,13 @@
   font-size: 1.2rem;
 }
 
+.todo-btn:hover,
 .card-exit-btn:hover {
   background-color: gray;
   border-radius: 50%;
+  cursor: pointer;
 }
+
 .todo-body-item {
   display: flex;
   align-items: center;
