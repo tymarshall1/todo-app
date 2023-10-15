@@ -73,13 +73,14 @@ const addTodoFormBody = (todoDB) => {
         titleInp.value,
         descriptioninp.value,
         new Date(`${datepick.value} 00:00:00`),
-        selectedValue
+        selectedValue,
+        "none"
       );
     }
 
     optionCurrentlySelected(document.querySelector("#allTasks"));
     removeTodosFromScreen();
-    todoBody(todoDB.readAllTodos());
+    todoBody(todoDB.readAllTodos(), todoDB);
     document.querySelector("#add-todo-dialog").close();
     priorityStartPosition();
     form.reset();

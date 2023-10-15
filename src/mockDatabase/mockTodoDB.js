@@ -32,7 +32,7 @@ export default class TodoDB {
     ),
   ];
 
-  createTodo() {
+  createTodo(title, description, dueDate, priority, project) {
     this.#todoDB.push(new Todo(title, description, dueDate, priority, project));
   }
 
@@ -56,5 +56,12 @@ export default class TodoDB {
     // console.log(this.#todoDB[todoIndex]);
   }
 
-  deleteTodo(todoTitle) {}
+  deleteTodo(todoTitle) {
+    const todoIndex = this.#todoDB.findIndex((todo) => {
+      return todo.title === todoTitle;
+    });
+
+    this.#todoDB[todoIndex] = this.#todoDB[this.#todoDB.length - 1];
+    this.#todoDB.pop();
+  }
 }

@@ -15,6 +15,10 @@
   cursor: pointer;
   user-select: none;
 }
+.todo-item input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+}
 
 .todo-item:hover {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

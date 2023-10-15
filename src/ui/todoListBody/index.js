@@ -2,7 +2,12 @@ import "./style.css";
 import edit from "../assets/editBtn.svg";
 import deleteButton from "../assets/deleteBtn.svg";
 import exit from "../assets/xBtn.svg";
-import Todo from "../../modules/todo.js";
+// import Todo from "../../modules/todo.js";
+import {
+  weekFromToday,
+  monthFromToday,
+  todaysTasks,
+} from "../../util/todoDates.js";
 
 function todoBody(filteredTodos, todoDB) {
   const content = document.querySelector("#content");
@@ -37,6 +42,12 @@ const todoItem = (todo, todoDB) => {
   deleteBtn.src = deleteButton;
   lineThroughTodo(todo, todoContainer, todoTitle, todoDate, todoCheckbox);
 
+  deleteBtn.addEventListener("click", () => {
+    todoDB.deleteTodo(todo.title);
+    removeTodosFromScreen();
+    redrawlTodosAfterDelete(todoDB);
+  });
+
   todoCheckbox.addEventListener("input", () => {
     if (todoCheckbox.checked) {
       todoDB.markTodoComplete(todo.title, true);
@@ -63,6 +74,25 @@ const todoItem = (todo, todoDB) => {
   todoContainer.appendChild(titleContainer);
   todoContainer.appendChild(todoBtns);
   return todoContainer;
+};
+
+const redrawlTodosAfterDelete = (todoDB) => {
+  const linkClicked = document.querySelector(".navlink-clicked");
+
+  switch (linkClicked.textContent) {
+    case "All":
+      todoBody(todoDB.readAllTodos(), todoDB);
+      break;
+    case "Today":
+      todoBody(todaysTasks(todoDB), todoDB);
+      break;
+    case "Week":
+      todoBody(weekFromToday(todoDB), todoDB);
+      break;
+    case "Month":
+      todoBody(monthFromToday(todoDB), todoDB);
+      break;
+  }
 };
 
 const setPriorityBorder = (priority, todoContainer) => {
@@ -214,7 +244,6 @@ const lineThroughTodo = (
   todoCheckbox
 ) => {
   if (todo.completed === true) {
-    console.log(todoContainer);
     todoContainer.style.opacity = 0.5;
     todoTitle.style.textDecoration = "line-through";
     todoDate.style.textDecoration = "line-through";
