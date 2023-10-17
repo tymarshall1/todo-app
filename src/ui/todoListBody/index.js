@@ -288,28 +288,7 @@ const handleEditBtnClick = (todo, todoDB) => {
     clearModalsOnClose(document.querySelector(".todo-modal"))
   );
 
-  updateBtn.addEventListener("click", () => {
-    if (cardEditTitle.value === "") {
-      cardEditTitle.value = "No Title Set";
-    }
-    if (cardEditDesc.value === "") {
-      cardEditDesc.value = "No Description Set";
-    }
-
-    const editedTodo = new Todo(
-      cardEditTitle.value,
-      cardEditDesc.value,
-      new Date(`${cardEditDate.value} 00:00:00`),
-      cardEditPriority.value,
-      cardEditProject.value
-    );
-    todoDB.updateTodo(todo, editedTodo);
-    todoDB.markTodoComplete(cardEditTitle.value, cardEditCompleted.value);
-
-    clearModalsOnClose(document.querySelector(".todo-modal"));
-    removeTodosFromScreen();
-    redrawlTodosAfterDelete(todoDB);
-  });
+  updateBtn.addEventListener("click", () => handleUpdateBtnClick(todoDB, todo));
 
   closeBtn.classList.add("update-form-button");
   updateBtn.classList.add("update-form-button");
@@ -348,7 +327,7 @@ const handleEditBtnClick = (todo, todoDB) => {
     selectPrioLowHigh.selected = true;
   }
 
-  todo.completed == "true" || todo.completed === true
+  todo.completed === "true" || todo.completed === true
     ? (selectCompleteTrue.selected = true)
     : (selectCompleteFalse.selected = true);
 
@@ -383,6 +362,45 @@ const handleEditBtnClick = (todo, todoDB) => {
   todoCardBody.appendChild(underline);
   todoCardBody.appendChild(updateBtn);
   todoCardBody.appendChild(closeBtn);
+};
+
+const handleUpdateBtnClick = (todoDB, todo) => {
+  const cardEditTitle = document.querySelector(
+    "#cardBodyTitleContainer > input"
+  );
+
+  const cardEditDesc = document.querySelector(
+    "#cardBodyDescContainer > textarea"
+  );
+  const cardEditDate = document.querySelector("#cardBodyDateContainer > input");
+  const cardEditPriority = document.querySelector(
+    "#cardBodyPrioContainer > select"
+  );
+  const cardEditProject = document.querySelector(
+    "#cardBodyProjContainer > input"
+  );
+  const cardEditCompleted = document.querySelector(
+    "#cardBodyCompletedContainer > select"
+  );
+  if (cardEditTitle.value === "") {
+    cardEditTitle.value = "No Title Set";
+  }
+  if (cardEditDesc.value === "") {
+    cardEditDesc.value = "No Description Set";
+  }
+
+  const editedTodo = new Todo(
+    cardEditTitle.value,
+    cardEditDesc.value,
+    new Date(`${cardEditDate.value} 00:00:00`),
+    cardEditPriority.value,
+    cardEditProject.value
+  );
+  todoDB.updateTodo(todo, editedTodo);
+  todoDB.markTodoComplete(cardEditTitle.value, cardEditCompleted.value);
+  clearModalsOnClose(document.querySelector(".todo-modal"));
+  removeTodosFromScreen();
+  redrawlTodosAfterDelete(todoDB);
 };
 
 const lineThroughTodo = (
