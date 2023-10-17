@@ -44,8 +44,7 @@ export default class TodoDB {
     const todoIndex = this.#todoDB.findIndex((todo) => {
       return todo.title === oldTodo.title;
     });
-
-    console.log(todoIndex);
+    this.#todoDB[todoIndex] = newTodo;
   }
 
   markTodoComplete(todoTitle, status) {
@@ -53,7 +52,6 @@ export default class TodoDB {
       return todo.title === todoTitle;
     });
     this.#todoDB[todoIndex].completed = status;
-    // console.log(this.#todoDB[todoIndex]);
   }
 
   deleteTodo(todoTitle) {

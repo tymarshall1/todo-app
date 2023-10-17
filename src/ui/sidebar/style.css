@@ -42,6 +42,10 @@
   cursor: pointer;
 }
 
+.navlink-clicked {
+  color: lightgreen;
+}
+
 .navlink-clicked::before {
   content: url("../assets/selectedIcon.svg");
 }
