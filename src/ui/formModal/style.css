@@ -18,7 +18,21 @@ dialog[open]::backdrop {
 
 .form-header {
   background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
-  padding: 0 1rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-exit-btn {
+  height: 2rem;
+  width: 2rem;
+}
+
+.form-exit-btn:hover {
+  background-color: gray;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .form-body {

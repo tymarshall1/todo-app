@@ -1,6 +1,7 @@
 import "./style.css";
 import { todoBody, removeTodosFromScreen } from "../todoListBody/index.js";
 import { optionCurrentlySelected } from "../sidebar/index.js";
+import exit from "../assets/xBtn.svg";
 
 export default function addFormContainer(todoDB) {
   const formContainer = document.createElement("div");
@@ -11,12 +12,19 @@ export default function addFormContainer(todoDB) {
   const todo = document.createElement("li");
   const project = document.createElement("li");
   const note = document.createElement("li");
+  const exitBtn = document.createElement("img");
+
+  exitBtn.src = exit;
+  exitBtn.addEventListener("click", () => {
+    document.querySelector("#add-todo-dialog").close();
+  });
 
   formHeaderText.textContent = "Add a New...";
   todo.textContent = "To-do";
   project.textContent = "Project";
   note.textContent = "Note";
 
+  exitBtn.classList.add("form-exit-btn");
   formbody.classList.add("form-body");
   elementToAdd.classList.add("element-to-add");
   formContainer.classList.add("add-todo-form");
@@ -27,6 +35,7 @@ export default function addFormContainer(todoDB) {
   elementToAdd.appendChild(note);
 
   formHeader.appendChild(formHeaderText);
+  formHeader.appendChild(exitBtn);
 
   formbody.appendChild(elementToAdd);
   formbody.appendChild(addTodoFormBody(todoDB));

@@ -41,9 +41,15 @@
   align-self: center;
   cursor: pointer;
 }
+.addtodobtn:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 100%;
+}
 
 .navlink-clicked {
   color: lightgreen;
+  margin-left: 0.5rem;
+  transition: margin-left 0.5s;
 }
 
 .navlink-clicked::before {

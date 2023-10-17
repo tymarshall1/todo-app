@@ -16,6 +16,13 @@ function todoBody(filteredTodos, todoDB) {
 
   div.classList.add("todo-list");
 
+  console.log(filteredTodos.length);
+
+  if (filteredTodos.length === 0) {
+    const emptyMsg = emptyTodoBody();
+    div.appendChild(emptyMsg);
+  }
+
   filteredTodos.forEach((todo) => {
     div.append(todoItem(todo, todoDB));
   });
@@ -362,6 +369,7 @@ const handleEditBtnClick = (todo, todoDB) => {
   todoCardBody.appendChild(underline);
   todoCardBody.appendChild(updateBtn);
   todoCardBody.appendChild(closeBtn);
+  cardEditTitle.focus();
 };
 
 const handleUpdateBtnClick = (todoDB, todo) => {
@@ -421,6 +429,21 @@ const lineThroughTodo = (
     todoTitle.style.textDecoration = "none";
     todoDate.style.textDecoration = "none";
   }
+};
+
+const emptyTodoBody = () => {
+  const container = document.createElement("div");
+  const headerText = document.createElement("h1");
+  const paraText = document.createElement("p");
+
+  headerText.textContent = "Wow, Looks Like You Have Nothing To Do!";
+  paraText.textContent = "Congratulations! Go ahead and sit back and relax!";
+
+  container.classList.add("empty-todo-container");
+
+  container.appendChild(headerText);
+  container.appendChild(paraText);
+  return container;
 };
 
 export { todoBody, removeTodosFromScreen };
