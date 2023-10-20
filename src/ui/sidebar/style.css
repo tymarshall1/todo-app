@@ -24,7 +24,7 @@
 
 .notes:hover,
 .todos > li:hover,
-.projects > li:hover {
+.projects:hover {
   color: lightgreen;
 }
 
@@ -43,7 +43,7 @@
 }
 .addtodobtn:hover {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-radius: 100%;
+  border-radius: 10px;
 }
 
 .navlink-clicked {

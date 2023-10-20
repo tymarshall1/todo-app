@@ -36,3 +36,15 @@ img {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+
+/* ::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+} */
+
+@media only screen and (max-width: 600px) {
+  #content {
+    height: 100vh;
+    width: 100vh;
+  }
+}

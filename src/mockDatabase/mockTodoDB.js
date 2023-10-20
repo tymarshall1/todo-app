@@ -21,14 +21,49 @@ export default class TodoDB {
       "have to get the clothes washed today",
       new Date("10/19/2023 00:00:00"),
       "medium",
-      "none"
+      "Gym"
     ),
     new Todo(
       "clean bed",
       "have to get the clothes washed today",
       new Date("10/18/2023 00:00:00"),
       "low",
-      "none"
+      "Odin Project"
+    ),
+    new Todo(
+      "clean car",
+      "have to get the clothes washed today",
+      new Date("10/18/2023 00:00:00"),
+      "low",
+      "Odin Project"
+    ),
+    new Todo(
+      "dda",
+      "have to get the clothes washed today",
+      new Date("10/18/2023 00:00:00"),
+      "low",
+      "Odin Project"
+    ),
+    new Todo(
+      "do this",
+      "have to get the clothes washed today",
+      new Date("10/18/2023 00:00:00"),
+      "low",
+      "Odin Project"
+    ),
+    new Todo(
+      "yyy",
+      "have to get the clothes washed today",
+      new Date("10/18/2023 00:00:00"),
+      "low",
+      "Odin Project"
+    ),
+    new Todo(
+      "xxx",
+      "have to get the clothes washed today",
+      new Date("10/18/2023 00:00:00"),
+      "low",
+      "Odin Project"
     ),
   ];
 

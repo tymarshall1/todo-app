@@ -1,21 +1,22 @@
 import "./style.css";
 import addTodoSVG from "../assets/addtodo.svg";
-import { todoBody, removeTodosFromScreen } from "../todoListBody/index.js";
+import { todoBody } from "../todoListBody/index.js";
 import addFormContainer from "../formModal/index.js";
 import {
   weekFromToday,
   monthFromToday,
   todaysTasks,
 } from "../../util/todoDates.js";
+import { projectBody } from "../projectsListBody/index.js";
 
-function sidebar(todoDB) {
+function sidebar(todoDB, projectDB) {
   const content = document.querySelector("#content");
   const sidebarContainer = document.createElement("div");
 
   sidebarContainer.classList.add("sidebar");
 
   const todosList = todosNav(todoDB);
-  const projectList = projects();
+  const projectList = projects(projectDB, todoDB);
   const notesOption = notes();
   const addtodoOption = addTodoIcon(todoDB);
 
@@ -45,28 +46,28 @@ const todosNav = (todoDB) => {
 
   allTasks.addEventListener("click", () => {
     optionCurrentlySelected(allTasks);
-    removeTodosFromScreen();
+    clearBodyOnNavChange();
     todoBody(todoDB.readAllTodos(), todoDB);
   });
 
   todayTasks.addEventListener("click", () => {
     const filteredTodos = todaysTasks(todoDB);
     optionCurrentlySelected(todayTasks);
-    removeTodosFromScreen();
+    clearBodyOnNavChange();
     todoBody(filteredTodos, todoDB);
   });
 
   weeklyTasks.addEventListener("click", () => {
     const filteredTodos = weekFromToday(todoDB);
     optionCurrentlySelected(weeklyTasks);
-    removeTodosFromScreen();
+    clearBodyOnNavChange();
     todoBody(filteredTodos, todoDB);
   });
 
   monthlyTasks.addEventListener("click", () => {
     const filteredTodos = monthFromToday(todoDB);
     optionCurrentlySelected(monthlyTasks);
-    removeTodosFromScreen();
+    clearBodyOnNavChange();
     todoBody(filteredTodos, todoDB);
   });
 
@@ -78,20 +79,18 @@ const todosNav = (todoDB) => {
   return todos;
 };
 
-const projects = () => {
+const projects = (projectDB, todoDB) => {
   const projects = document.createElement("ul");
-  const placeholderProject = document.createElement("li");
 
   projects.classList.add("projects");
 
   projects.textContent = "Projects";
-  placeholderProject.textContent = "Finish TOP";
 
   projects.addEventListener("click", () => {
     optionCurrentlySelected(projects);
+    clearBodyOnNavChange();
+    projectBody(projectDB, todoDB);
   });
-
-  projects.appendChild(placeholderProject);
 
   return projects;
 };
@@ -145,4 +144,17 @@ const optionCurrentlySelected = (navItemClicked) => {
   });
 };
 
-export { sidebar, optionCurrentlySelected };
+function clearBodyOnNavChange() {
+  const todoBody = document.querySelectorAll(".todo-list");
+  const projectBody = document.querySelectorAll(".project-container");
+
+  todoBody.forEach((todoList) => {
+    todoList.remove();
+  });
+
+  projectBody.forEach((project) => {
+    project.remove();
+  });
+}
+
+export { sidebar, optionCurrentlySelected, clearBodyOnNavChange };

@@ -99,8 +99,8 @@
 .card-edit-btn:hover,
 .todo-btn:hover,
 .card-exit-btn:hover {
-  background-color: gray;
-  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 5px;
   cursor: pointer;
 }
 

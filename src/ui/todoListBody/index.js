@@ -9,14 +9,13 @@ import {
   monthFromToday,
   todaysTasks,
 } from "../../util/todoDates.js";
-
+import { clearBodyOnNavChange } from "../sidebar/index.js";
+import { projectBody } from "../projectsListBody/index.js";
 function todoBody(filteredTodos, todoDB) {
   const content = document.querySelector("#content");
   const div = document.createElement("div");
 
   div.classList.add("todo-list");
-
-  console.log(filteredTodos.length);
 
   if (filteredTodos.length === 0) {
     const emptyMsg = emptyTodoBody();
@@ -57,8 +56,13 @@ const todoItem = (todo, todoDB) => {
   lineThroughTodo(todo, todoContainer, todoTitle, todoDate, todoCheckbox);
 
   deleteBtn.addEventListener("click", () => {
+    if (document.querySelector(".navlink-clicked").textContent === "Projects") {
+      document.getElementById(todo.title).parentElement.parentElement.remove();
+      todoDB.deleteTodo(todo.title);
+      return;
+    }
     todoDB.deleteTodo(todo.title);
-    removeTodosFromScreen();
+    clearBodyOnNavChange();
     redrawlTodosAfterDelete(todoDB);
   });
 
@@ -258,13 +262,6 @@ const todoItemModal = (todo, todoDB) => {
   todoCard.showModal();
 };
 
-function removeTodosFromScreen() {
-  const todoBody = document.querySelectorAll(".todo-list");
-  todoBody.forEach((todoList) => {
-    todoList.remove();
-  });
-}
-
 const clearModalsOnClose = (modalSelected) => {
   const cardModals = document.querySelectorAll(".todo-modal");
   cardModals.forEach((modal) => modal.remove());
@@ -406,8 +403,20 @@ const handleUpdateBtnClick = (todoDB, todo) => {
   );
   todoDB.updateTodo(todo, editedTodo);
   todoDB.markTodoComplete(cardEditTitle.value, cardEditCompleted.value);
+
+  if (document.querySelector(".navlink-clicked").textContent === "Projects") {
+    const oldTodoInp = document.getElementById(todo.title);
+    const projectContainer =
+      oldTodoInp.parentElement.parentElement.parentElement;
+
+    projectContainer.appendChild(todoItem(editedTodo, todoDB));
+
+    oldTodoInp.parentElement.parentElement.remove();
+    clearModalsOnClose(document.querySelector(".todo-modal"));
+    return;
+  }
   clearModalsOnClose(document.querySelector(".todo-modal"));
-  removeTodosFromScreen();
+  clearBodyOnNavChange();
   redrawlTodosAfterDelete(todoDB);
 };
 
@@ -446,4 +455,4 @@ const emptyTodoBody = () => {
   return container;
 };
 
-export { todoBody, removeTodosFromScreen };
+export { todoBody, todoItem };
