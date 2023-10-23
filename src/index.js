@@ -7,6 +7,7 @@ import ProjectDB from "./mockDatabase/mockProjectsDB.js";
 
 const todoDB = new TodoDB();
 const projectDB = new ProjectDB();
+export default projectDB;
 
 window.addEventListener("load", () => {
   optionCurrentlySelected(document.querySelector("#allTasks"));

@@ -7,8 +7,8 @@ export default class ProjectDB {
     new Project("none", false),
   ];
 
-  createProject(title) {
-    this.#projectDB.push(new Project(title));
+  createProject(title, status) {
+    this.#projectDB.push(new Project(title, status));
   }
 
   readAllProjects() {

@@ -3,8 +3,9 @@ import { todoBody } from "../todoListBody/index.js";
 import { optionCurrentlySelected } from "../sidebar/index.js";
 import exit from "../assets/xBtn.svg";
 import { clearBodyOnNavChange } from "../sidebar/index.js";
+import { projectBody } from "../projectsListBody/index.js";
 
-export default function addFormContainer(todoDB) {
+export default function addFormContainer(todoDB, projectDB) {
   const formContainer = document.createElement("div");
   const formHeader = document.createElement("div");
   const formHeaderText = document.createElement("h1");
@@ -39,14 +40,26 @@ export default function addFormContainer(todoDB) {
   formHeader.appendChild(exitBtn);
 
   formbody.appendChild(elementToAdd);
-  formbody.appendChild(addTodoFormBody(todoDB));
+  formbody.appendChild(addTodoFormBody(todoDB, projectDB));
+
+  todo.addEventListener("click", () => {
+    document.querySelector("form").remove();
+    formbody.appendChild(addTodoFormBody(todoDB, projectDB));
+  });
+
+  project.addEventListener("click", () => {
+    document.querySelector("form").remove();
+    formbody.appendChild(addProjectForm(projectDB, todoDB));
+  });
+
+  note.addEventListener("click", () => {});
 
   formContainer.appendChild(formHeader);
   formContainer.appendChild(formbody);
   return formContainer;
 }
 
-const addTodoFormBody = (todoDB) => {
+const addTodoFormBody = (todoDB, projectDB) => {
   const titleInp = document.createElement("input");
   const descriptioninp = document.createElement("textarea");
   const submitForm = document.createElement("button");
@@ -54,6 +67,8 @@ const addTodoFormBody = (todoDB) => {
   const dateLabel = document.createElement("label");
   const datepick = document.createElement("input");
   const form = document.createElement("form");
+  const projectSelect = document.createElement("select");
+  const projectSelectLabel = document.createElement("label");
 
   const priorityFieldset = document.createElement("fieldset");
   const priorityLabelLow = document.createElement("label");
@@ -66,6 +81,17 @@ const addTodoFormBody = (todoDB) => {
   priorityLabelLow.addEventListener("click", (e) => priorityMarker(e));
   priorityLabelMed.addEventListener("click", (e) => priorityMarker(e));
   priorityLabelHigh.addEventListener("click", (e) => priorityMarker(e));
+
+  projectSelectLabel.textContent = "Project";
+  const projects = projectDB.readAllProjects();
+  projects.forEach((project) => {
+    const singleProj = document.createElement("option");
+    singleProj.htmlFor = "project";
+    singleProj.value = project.title;
+    singleProj.textContent = project.title;
+    singleProj.id = project.title;
+    projectSelect.appendChild(singleProj);
+  });
 
   form.id = "addTodo";
   submitForm.type = "submit";
@@ -84,7 +110,7 @@ const addTodoFormBody = (todoDB) => {
         descriptioninp.value,
         new Date(`${datepick.value} 00:00:00`),
         selectedValue,
-        "none"
+        projectSelect.value
       );
     }
 
@@ -139,7 +165,7 @@ const addTodoFormBody = (todoDB) => {
   priorityLabelMed.textContent = "Medium Priority";
   priorityLabelHigh.textContent = "High Priority";
 
-  form.classList.add("todo-form-body");
+  form.classList.add("all-form-body");
   submitForm.classList.add("submit-form-btn");
   dateDiv.classList.add("date-container");
   priorityFieldset.classList.add("priority-container");
@@ -156,6 +182,8 @@ const addTodoFormBody = (todoDB) => {
 
   dateDiv.appendChild(dateLabel);
   dateDiv.appendChild(datepick);
+  dateDiv.appendChild(projectSelectLabel);
+  dateDiv.appendChild(projectSelect);
 
   form.appendChild(titleInp);
   form.appendChild(descriptioninp);
@@ -163,6 +191,43 @@ const addTodoFormBody = (todoDB) => {
   form.appendChild(priorityFieldset);
   form.appendChild(submitForm);
 
+  return form;
+};
+
+const addProjectForm = (projectDB, todoDB) => {
+  const form = document.createElement("form");
+  const projectName = document.createElement("input");
+  const submitBtn = document.createElement("button");
+
+  projectName.placeholder = "Name For Project";
+  projectName.type = "text";
+  projectName.required = true;
+  projectName.htmlFor = "title";
+  projectName.id = `projectTitle`;
+
+  form.id = "addProject";
+
+  submitBtn.type = "submit";
+  submitBtn.textContent = "Submit";
+  submitBtn.setAttribute("form", "addProject");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    projectDB.createProject(projectName.value);
+
+    optionCurrentlySelected(document.querySelector(".projects"));
+    clearBodyOnNavChange();
+    projectBody(projectDB, todoDB);
+
+    document.querySelector("#add-todo-dialog").close();
+    form.reset();
+  });
+
+  form.classList.add("all-form-body");
+  submitBtn.classList.add("submit-form-btn");
+
+  form.appendChild(projectName);
+  form.appendChild(submitBtn);
   return form;
 };
 

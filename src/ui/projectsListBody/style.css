@@ -13,6 +13,11 @@
   font-size: 2rem;
 }
 
+summary {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 details[open] {
   overflow: auto;
   scrollbar-width: 1rem;
@@ -21,6 +26,11 @@ details[open] {
 details[open] summary {
   margin-bottom: 2rem;
 }
+
+details[open] label + label {
+  font-size: 1.2rem;
+}
+
 details[open]::-webkit-scrollbar {
   width: 12px;
   padding-right: 19px;

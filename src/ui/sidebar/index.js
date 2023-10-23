@@ -18,7 +18,7 @@ function sidebar(todoDB, projectDB) {
   const todosList = todosNav(todoDB);
   const projectList = projects(projectDB, todoDB);
   const notesOption = notes();
-  const addtodoOption = addTodoIcon(todoDB);
+  const addtodoOption = addTodoIcon(todoDB, projectDB);
 
   sidebarContainer.appendChild(todosList);
   sidebarContainer.appendChild(projectList);
@@ -109,13 +109,13 @@ const notes = () => {
   return notes;
 };
 
-const addTodoIcon = (todoDB) => {
+const addTodoIcon = (todoDB, projectDB) => {
   const addtodoBtn = document.createElement("img");
   const dialog = document.createElement("dialog");
 
   document.querySelector("#content").appendChild(dialog);
 
-  dialog.appendChild(addFormContainer(todoDB));
+  dialog.appendChild(addFormContainer(todoDB, projectDB));
   dialog.id = "add-todo-dialog";
 
   addtodoBtn.src = addTodoSVG;

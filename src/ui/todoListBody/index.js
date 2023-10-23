@@ -11,6 +11,8 @@ import {
 } from "../../util/todoDates.js";
 import { clearBodyOnNavChange } from "../sidebar/index.js";
 import { projectBody } from "../projectsListBody/index.js";
+import projectDB from "../../index.js";
+
 function todoBody(filteredTodos, todoDB) {
   const content = document.querySelector("#content");
   const div = document.createElement("div");
@@ -273,7 +275,7 @@ const handleEditBtnClick = (todo, todoDB) => {
   const cardEditDate = document.createElement("input");
   const cardEditDesc = document.createElement("textarea");
   const cardEditPriority = document.createElement("select");
-  const cardEditProject = document.createElement("input");
+  const cardEditProject = document.createElement("select");
   const cardEditCompleted = document.createElement("select");
   const selectPrioLow = document.createElement("option");
   const selectPrioMed = document.createElement("option");
@@ -293,6 +295,16 @@ const handleEditBtnClick = (todo, todoDB) => {
   );
 
   updateBtn.addEventListener("click", () => handleUpdateBtnClick(todoDB, todo));
+
+  const allProjects = projectDB.readAllProjects();
+  allProjects.forEach((project) => {
+    const singleProj = document.createElement("option");
+    singleProj.htmlFor = "project";
+    singleProj.value = project.title;
+    singleProj.textContent = project.title;
+    singleProj.id = project.title;
+    cardEditProject.appendChild(singleProj);
+  });
 
   closeBtn.classList.add("update-form-button");
   updateBtn.classList.add("update-form-button");
@@ -382,7 +394,7 @@ const handleUpdateBtnClick = (todoDB, todo) => {
     "#cardBodyPrioContainer > select"
   );
   const cardEditProject = document.querySelector(
-    "#cardBodyProjContainer > input"
+    "#cardBodyProjContainer > select"
   );
   const cardEditCompleted = document.querySelector(
     "#cardBodyCompletedContainer > select"
@@ -406,12 +418,13 @@ const handleUpdateBtnClick = (todoDB, todo) => {
 
   if (document.querySelector(".navlink-clicked").textContent === "Projects") {
     const oldTodoInp = document.getElementById(todo.title);
-    const projectContainer =
-      oldTodoInp.parentElement.parentElement.parentElement;
+    document.querySelectorAll(".single-project").forEach((detail) => {
+      if (detail.firstChild.textContent === editedTodo.project) {
+        detail.appendChild(todoItem(editedTodo, todoDB));
+        oldTodoInp.parentElement.parentElement.remove();
+      }
+    });
 
-    projectContainer.appendChild(todoItem(editedTodo, todoDB));
-
-    oldTodoInp.parentElement.parentElement.remove();
     clearModalsOnClose(document.querySelector(".todo-modal"));
     return;
   }
