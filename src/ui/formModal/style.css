@@ -103,12 +103,17 @@ dialog[open]::backdrop {
 
 .date-container {
   display: flex;
-  justify-content: space-evenly;
+}
+
+.date-container div {
+  flex: 1;
+  text-align: center;
 }
 
 .date-container input[type="date"],
 .date-container select {
   height: 35px;
+  width: 50%;
 }
 
 .date-container label {

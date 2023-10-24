@@ -92,12 +92,16 @@ const addTodoFormBody = (todoDB, projectDB) => {
   const titleInp = document.createElement("input");
   const descriptioninp = document.createElement("textarea");
   const submitForm = document.createElement("button");
-  const dateDiv = document.createElement("div");
+
   const dateLabel = document.createElement("label");
   const datepick = document.createElement("input");
   const form = document.createElement("form");
   const projectSelect = document.createElement("select");
   const projectSelectLabel = document.createElement("label");
+
+  const projectDiv = document.createElement("div");
+  const dateInfo = document.createElement("div");
+  const dateDiv = document.createElement("div");
 
   const priorityFieldset = document.createElement("fieldset");
   const priorityLabelLow = document.createElement("label");
@@ -209,10 +213,14 @@ const addTodoFormBody = (todoDB, projectDB) => {
   priorityFieldset.appendChild(priorityRadioHigh);
   priorityFieldset.appendChild(priorityLabelHigh);
 
-  dateDiv.appendChild(dateLabel);
-  dateDiv.appendChild(datepick);
-  dateDiv.appendChild(projectSelectLabel);
-  dateDiv.appendChild(projectSelect);
+  dateInfo.appendChild(dateLabel);
+  dateInfo.appendChild(datepick);
+
+  projectDiv.appendChild(projectSelectLabel);
+  projectDiv.appendChild(projectSelect);
+
+  dateDiv.appendChild(dateInfo);
+  dateDiv.appendChild(projectDiv);
 
   form.appendChild(titleInp);
   form.appendChild(descriptioninp);
