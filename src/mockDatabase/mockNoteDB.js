@@ -2,28 +2,31 @@ import Note from "../modules/note.js";
 
 class NoteDB {
   #noteDB = [
+    new Note("Short Note", "This is a brief note."),
     new Note(
-      "test",
-      "test description hey look this is a note hey look this is a note hey look this is a note hey look this is a note "
-    ),
-    new Note("LOOK!", "hey look this is a note"),
-    new Note(
-      "yada yada",
-      "blah blahblah blahblah blahblah blahblah blahs bahhhhh booooyaa blahhh blacchhhh"
+      "Medium-Length Note",
+      "This note has a moderate amount of content. It provides some details about a topic."
     ),
     new Note(
-      "another test note",
-      "This is a test to see the length fo the noteThis is a test to see the length fo the noteen the windocan I make the grid-template-rows expand in order to enclose the te"
+      "Longer Note with More Details",
+      "This is a more detailed note that contains additional information. It might describe an event, a project, or a plan in a comprehensive manner."
     ),
     new Note(
-      "Okay going good",
-      "today i ran a 5k and it was the greatest thing ive ever accompplished in life. I cant believe this is really true"
+      "Very Long Note with Extensive Content",
+      "This note is quite lengthy and contains a substantial amount of text. It could be used for journaling, documenting a complex topic, or recording a series of thoughts."
     ),
     new Note(
-      "yay",
-      "hen the windocan I make the grid-template-rows expand in order to enclose the text? I hen the windocan I make the grid-template-rows expand in order to enclose the text? I already tried setting it to auto but it just follows the proportions of the image."
+      "Another Medium-Length Note",
+      "Here's another note with a moderate length. It provides information without being too lengthy."
     ),
-    new Note("okay yes another", "test description"),
+    new Note(
+      "List of Tasks",
+      "1. Finish the report\n2. Call the client\n3. Prepare presentation slides\n4. Buy groceries for dinner"
+    ),
+    new Note(
+      "Simple Reminder",
+      "Don't forget to water the plants and check the mailbox today."
+    ),
   ];
 
   createNote(title, description) {

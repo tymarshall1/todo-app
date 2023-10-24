@@ -44,17 +44,21 @@ export default function addFormContainer(todoDB, projectDB) {
   formbody.appendChild(elementToAdd);
   formbody.appendChild(addTodoFormBody(todoDB, projectDB));
 
-  todo.addEventListener("click", () => {
+  todo.classList.add("form-selected");
+  todo.addEventListener("click", (e) => {
+    toggleFormSelected(todo, project, note, e);
     document.querySelector("form").remove();
     formbody.appendChild(addTodoFormBody(todoDB, projectDB));
   });
 
-  project.addEventListener("click", () => {
+  project.addEventListener("click", (e) => {
+    toggleFormSelected(todo, project, note, e);
     document.querySelector("form").remove();
     formbody.appendChild(addProjectForm(projectDB, todoDB));
   });
 
-  note.addEventListener("click", () => {
+  note.addEventListener("click", (e) => {
+    toggleFormSelected(todo, project, note, e);
     document.querySelector("form").remove();
     formbody.appendChild(addNoteForm());
   });
@@ -63,6 +67,26 @@ export default function addFormContainer(todoDB, projectDB) {
   formContainer.appendChild(formbody);
   return formContainer;
 }
+
+const toggleFormSelected = (todo, project, note, e) => {
+  switch (e.target.textContent) {
+    case "To-do":
+      todo.classList.add("form-selected");
+      project.classList.remove("form-selected");
+      note.classList.remove("form-selected");
+      break;
+    case "Project":
+      todo.classList.remove("form-selected");
+      project.classList.add("form-selected");
+      note.classList.remove("form-selected");
+      break;
+    case "Note":
+      todo.classList.remove("form-selected");
+      project.classList.remove("form-selected");
+      note.classList.add("form-selected");
+      break;
+  }
+};
 
 const addTodoFormBody = (todoDB, projectDB) => {
   const titleInp = document.createElement("input");
@@ -165,7 +189,7 @@ const addTodoFormBody = (todoDB, projectDB) => {
   dateLabel.textContent = "Due Date";
   titleInp.placeholder = "Title";
   descriptioninp.placeholder = "Enter description of a to-do";
-  submitForm.textContent = "Submit";
+  submitForm.textContent = "Add To-do";
   priorityLabelLow.textContent = "Low Priority";
   priorityLabelMed.textContent = "Medium Priority";
   priorityLabelHigh.textContent = "High Priority";
@@ -195,7 +219,7 @@ const addTodoFormBody = (todoDB, projectDB) => {
   form.appendChild(dateDiv);
   form.appendChild(priorityFieldset);
   form.appendChild(submitForm);
-
+  titleInp.focus();
   return form;
 };
 
@@ -213,7 +237,7 @@ const addProjectForm = (projectDB, todoDB) => {
   form.id = "addProject";
 
   submitBtn.type = "submit";
-  submitBtn.textContent = "Submit";
+  submitBtn.textContent = "Create Project";
   submitBtn.setAttribute("form", "addProject");
 
   form.addEventListener("submit", (e) => {
@@ -248,7 +272,7 @@ const addNoteForm = () => {
   titleInp.required = true;
 
   const descInp = document.createElement("textarea");
-  descInp.placeholder = "Add a Description";
+  descInp.placeholder = "Enter Description For Note";
   descInp.htmlFor = "decription";
   descInp.required = true;
 
@@ -271,7 +295,7 @@ const addNoteForm = () => {
   form.appendChild(titleInp);
   form.appendChild(descInp);
   form.appendChild(submitBtn);
-
+  titleInp.focus();
   return form;
 };
 

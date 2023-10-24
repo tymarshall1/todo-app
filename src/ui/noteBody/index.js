@@ -9,7 +9,7 @@ const noteBody = () => {
   const noteContainer = document.createElement("div");
 
   const allNotes = noteDB.readAllNotes();
-  console.log(allNotes);
+
   allNotes.forEach((note) => {
     noteContainer.appendChild(singleNote(note));
   });

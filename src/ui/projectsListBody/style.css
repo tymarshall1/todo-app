@@ -21,6 +21,7 @@ summary {
 details[open] {
   overflow: auto;
   scrollbar-width: 1rem;
+  min-height: 400px;
 }
 
 details[open] summary {

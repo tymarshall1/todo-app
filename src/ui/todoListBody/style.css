@@ -131,10 +131,28 @@
   height: 3rem;
 }
 
+.cancel-form-button,
 .update-form-button {
   width: 50%;
   margin: 0 auto;
   height: 2rem;
+  background-color: transparent;
+  border: 1px solid rgb(154, 235, 154);
+  font-size: 1rem;
+  font-weight: 500;
+}
+.update-form-button:hover {
+  color: white;
+  background-color: rgb(154, 235, 154);
+}
+
+.cancel-form-button {
+  border: 1px solid lightsalmon;
+}
+
+.cancel-form-button:hover {
+  color: white;
+  background-color: lightsalmon;
 }
 
 hr {

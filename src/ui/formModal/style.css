@@ -16,6 +16,16 @@ dialog[open]::backdrop {
   flex-direction: column;
 }
 
+.form-selected {
+  color: lightgreen;
+  margin-left: 0.5rem;
+  transition: margin-left 0.5s;
+}
+
+.form-selected::before {
+  content: url("../assets/selectedIcon.svg");
+}
+
 .form-header {
   background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
   padding: 1rem;
@@ -30,8 +40,8 @@ dialog[open]::backdrop {
 }
 
 .form-exit-btn:hover {
-  background-color: gray;
-  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -52,7 +62,7 @@ dialog[open]::backdrop {
 .all-form-body {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
   flex: 4;
   font-size: 2rem;
   padding: 1rem;
@@ -80,6 +90,25 @@ dialog[open]::backdrop {
   width: 100%;
   margin: 0 auto;
   padding: 0.5rem;
+  background-color: transparent;
+  border: 2px solid rgb(154, 235, 154);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.submit-form-btn:hover {
+  color: white;
+  background-color: rgb(154, 235, 154);
+}
+
+.date-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.date-container input[type="date"],
+.date-container select {
+  height: 35px;
 }
 
 .date-container label {
@@ -98,7 +127,7 @@ dialog[open]::backdrop {
 .element-to-add {
   list-style: none;
   flex: 1;
-  background-color: rgba(241, 219, 219, 0.418);
+  background-color: rgba(235, 228, 228, 0.418);
 }
 
 .priority-container input[type="radio"] {

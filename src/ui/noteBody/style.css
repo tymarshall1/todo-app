@@ -108,4 +108,23 @@
 
 .edit-note-btn-container button {
   flex: 1;
+  background-color: white;
+  border: 1px solid black;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 4px;
+}
+
+.edit-note-btn-container button:nth-child(1) {
+}
+.edit-note-btn-container button:nth-child(1):hover {
+  background-color: black;
+  color: white;
+}
+
+.edit-note-btn-container button:nth-child(2) {
+}
+.edit-note-btn-container button:nth-child(2):hover {
+  background-color: black;
+  color: white;
 }

@@ -23,7 +23,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 1fr 5fr;
-  height: 70vh;
+  height: 80vh;
   width: 75vw;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   background-color: white;
@@ -36,11 +36,6 @@ img {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
-
-/* ::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-} */
 
 @media only screen and (max-width: 600px) {
   #content {

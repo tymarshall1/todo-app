@@ -3,67 +3,67 @@ import Todo from "../modules/todo.js";
 export default class TodoDB {
   #todoDB = [
     new Todo(
-      "wash dishes",
-      "have to get the dishes done today",
-      new Date("10/14/2023 00:00:00"),
+      "Complete Project Report",
+      "Finish the project report and submit it to the supervisor.",
+      new Date("10/25/2023 14:30:00"),
       "high",
       "none"
     ),
     new Todo(
-      "clean tractor",
-      "have to get the clothes washed today",
-      new Date("10/10/2023 00:00:00"),
-      "high",
-      "none"
-    ),
-    new Todo(
-      "clean wash",
-      "have to get the clothes washed today",
-      new Date("10/19/2023 00:00:00"),
+      "Grocery Shopping",
+      "Buy groceries for the week, including fruits, vegetables, and milk.",
+      new Date("10/28/2023 10:00:00"),
       "medium",
+      "none"
+    ),
+    new Todo(
+      "Gym Workout",
+      "Hit the gym for a workout session. Focus on cardio and strength training.",
+      new Date("10/29/2023 16:00:00"),
+      "high",
       "Gym"
     ),
     new Todo(
-      "clean bed",
-      "have to get the clothes washed today",
-      new Date("10/18/2023 00:00:00"),
-      "low",
-      "Odin Project"
+      "Read a Book",
+      "Spend time reading 'The Great Gatsby' by F. Scott Fitzgerald.",
+      new Date("10/30/2023 19:00:00"),
+      "medium",
+      "Reading"
     ),
     new Todo(
-      "clean car",
-      "have to get the clothes washed today",
-      new Date("10/18/2023 00:00:00"),
+      "Plan Weekend Getaway",
+      "Research and plan a weekend trip to a nearby tourist destination.",
+      new Date("10/28/2023 00:00:00"),
       "low",
-      "Odin Project"
+      "Travel"
     ),
     new Todo(
-      "dda",
-      "have to get the clothes washed today",
-      new Date("10/18/2023 00:00:00"),
-      "low",
-      "Odin Project"
+      "Attend Web Development Workshop",
+      "Participate in a web development workshop to learn new skills.",
+      new Date("10/25/2023 13:00:00"),
+      "medium",
+      "Learning"
     ),
     new Todo(
-      "do this",
-      "have to get the clothes washed today",
-      new Date("10/18/2023 00:00:00"),
-      "low",
-      "Odin Project"
+      "Write a Blog Post",
+      "Create and publish a blog post on a topic of interest.",
+      new Date("11/15/2023 18:30:00"),
+      "high",
+      "Blogging"
     ),
     new Todo(
-      "yyy",
-      "have to get the clothes washed today",
-      new Date("10/18/2023 00:00:00"),
-      "low",
-      "Odin Project"
+      "Practice Coding",
+      "Spend time practicing coding problems and algorithms.",
+      new Date("11/16/2023 15:00:00"),
+      "medium",
+      "Coding"
     ),
     new Todo(
-      "xxx",
-      "have to get the clothes washed today",
-      new Date("10/18/2023 00:00:00"),
+      "Visit Art Gallery",
+      "Explore the local art gallery and appreciate the artwork.",
+      new Date("11/17/2023 11:00:00"),
       "low",
-      "Odin Project"
+      "Art"
     ),
   ];
 

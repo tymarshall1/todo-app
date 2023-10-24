@@ -10,7 +10,6 @@ import {
   todaysTasks,
 } from "../../util/todoDates.js";
 import { clearBodyOnNavChange } from "../sidebar/index.js";
-import { projectBody } from "../projectsListBody/index.js";
 import projectDB from "../../index.js";
 
 function todoBody(filteredTodos, todoDB) {
@@ -306,7 +305,7 @@ const handleEditBtnClick = (todo, todoDB) => {
     cardEditProject.appendChild(singleProj);
   });
 
-  closeBtn.classList.add("update-form-button");
+  closeBtn.classList.add("cancel-form-button");
   updateBtn.classList.add("update-form-button");
 
   updateBtn.textContent = "Update To-do";
