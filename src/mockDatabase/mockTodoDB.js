@@ -93,8 +93,6 @@ export default class TodoDB {
     const todoIndex = this.#todoDB.findIndex((todo) => {
       return todo.title === todoTitle;
     });
-
-    this.#todoDB[todoIndex] = this.#todoDB[this.#todoDB.length - 1];
-    this.#todoDB.pop();
+    this.#todoDB.splice(todoIndex, 1);
   }
 }

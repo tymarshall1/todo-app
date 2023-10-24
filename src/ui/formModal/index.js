@@ -4,6 +4,8 @@ import { optionCurrentlySelected } from "../sidebar/index.js";
 import exit from "../assets/xBtn.svg";
 import { clearBodyOnNavChange } from "../sidebar/index.js";
 import { projectBody } from "../projectsListBody/index.js";
+import { noteDB } from "../../mockDatabase/mockNoteDB.js";
+import { noteBody } from "../noteBody/index.js";
 
 export default function addFormContainer(todoDB, projectDB) {
   const formContainer = document.createElement("div");
@@ -52,7 +54,10 @@ export default function addFormContainer(todoDB, projectDB) {
     formbody.appendChild(addProjectForm(projectDB, todoDB));
   });
 
-  note.addEventListener("click", () => {});
+  note.addEventListener("click", () => {
+    document.querySelector("form").remove();
+    formbody.appendChild(addNoteForm());
+  });
 
   formContainer.appendChild(formHeader);
   formContainer.appendChild(formbody);
@@ -228,6 +233,45 @@ const addProjectForm = (projectDB, todoDB) => {
 
   form.appendChild(projectName);
   form.appendChild(submitBtn);
+  return form;
+};
+
+const addNoteForm = () => {
+  const form = document.createElement("form");
+  form.classList.add("all-form-body");
+  form.id = "addNoteForm";
+
+  const titleInp = document.createElement("input");
+  titleInp.placeholder = "Title For Note";
+  titleInp.htmlFor = "title";
+  titleInp.type = "text";
+  titleInp.required = true;
+
+  const descInp = document.createElement("textarea");
+  descInp.placeholder = "Add a Description";
+  descInp.htmlFor = "decription";
+  descInp.required = true;
+
+  const submitBtn = document.createElement("button");
+  submitBtn.textContent = "Create Note";
+  submitBtn.classList.add("submit-form-btn");
+  submitBtn.type = "submit";
+  submitBtn.setAttribute("form", "addNoteForm");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    optionCurrentlySelected(document.querySelector(".notes"));
+    clearBodyOnNavChange();
+    noteDB.createNote(titleInp.value, descInp.value);
+    noteBody();
+    document.querySelector("#add-todo-dialog").close();
+    form.reset();
+  });
+
+  form.appendChild(titleInp);
+  form.appendChild(descInp);
+  form.appendChild(submitBtn);
+
   return form;
 };
 

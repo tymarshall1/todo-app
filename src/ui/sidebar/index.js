@@ -8,6 +8,7 @@ import {
   todaysTasks,
 } from "../../util/todoDates.js";
 import { projectBody } from "../projectsListBody/index.js";
+import { noteBody } from "../noteBody/index.js";
 
 function sidebar(todoDB, projectDB) {
   const content = document.querySelector("#content");
@@ -104,6 +105,8 @@ const notes = () => {
 
   notes.addEventListener("click", () => {
     optionCurrentlySelected(notes);
+    clearBodyOnNavChange();
+    noteBody();
   });
 
   return notes;
@@ -127,9 +130,6 @@ const addTodoIcon = (todoDB, projectDB) => {
   return addtodoBtn;
 };
 
-const addProjectFormBody = () => {};
-const addNoteFormBody = () => {};
-
 const optionCurrentlySelected = (navItemClicked) => {
   navItemClicked.classList.add("navlink-clicked");
   const navLinks = document.querySelectorAll(".sidebar ul > li");
@@ -147,6 +147,7 @@ const optionCurrentlySelected = (navItemClicked) => {
 function clearBodyOnNavChange() {
   const todoBody = document.querySelectorAll(".todo-list");
   const projectBody = document.querySelectorAll(".project-container");
+  const noteBody = document.querySelectorAll(".note-container");
 
   todoBody.forEach((todoList) => {
     todoList.remove();
@@ -154,6 +155,10 @@ function clearBodyOnNavChange() {
 
   projectBody.forEach((project) => {
     project.remove();
+  });
+
+  noteBody.forEach((note) => {
+    note.remove();
   });
 }
 
