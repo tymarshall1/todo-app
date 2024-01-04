@@ -1,2 +1,1 @@
-# todo-app
-An application that allows you to track tasks that need to be completed. 
+Live link: https://tymarshall1.github.io/todo-app/
